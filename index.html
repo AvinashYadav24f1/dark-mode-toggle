@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Toggle</title>
+    <style>
+        /* Basic Reset & Body Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5; /* Light mode background */
+            color: #333; /* Light mode text color */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        /* Dark Mode Styles */
+        body.dark {
+            background-color: #282c34; /* Dark mode background */
+            color: #e0e0e0; /* Dark mode text color */
+        }
+
+        body.dark h1 {
+            color: #ffffff;
+        }
+
+        body.dark .toggle-container {
+            background-color: #3a3f47;
+            border-color: #555;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Header & Paragraph Styles */
+        h1 {
+            color: #222;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        p {
+            max-width: 700px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        /* Toggle Container Styling */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            padding: 12px 25px;
+            border: 1px solid #dcdcdc;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .toggle-container label {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        body.dark .toggle-container label {
+            color: #e0e0e0;
+        }
+
+        /* Custom Checkbox Toggle Styles */
+        #dark-mode-toggle {
+            /* Hide default checkbox appearance */
+            appearance: none;
+            -webkit-appearance: none;
+            width: 50px; /* Width of the switch track */
+            height: 26px; /* Height of the switch track */
+            background-color: #ccc; /* Background of the track when unchecked */
+            border-radius: 13px; /* Half of height for rounded corners */
+            position: relative;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s ease;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Slider/Knob for the toggle */
+        #dark-mode-toggle::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px; /* Width of the knob */
+            height: 20px; /* Height of the knob */
+            background-color: #fff; /* Knob color */
+            border-radius: 50%; /* Make it circular */
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* Styles when toggle is checked (dark mode) */
+        #dark-mode-toggle:checked {
+            background-color: #007bff; /* Blue for checked state (track color) */
+        }
+
+        /* Move the knob to the right when checked */
+        #dark-mode-toggle:checked::before {
+            transform: translateX(24px); /* (Track width - Knob width - 2*padding) */
+        }
+
+        /* Focus styles for accessibility */
+        #dark-mode-toggle:focus-visible {
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5), inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="toggle-container">
+        <label for="dark-mode-toggle">Dark Mode:</label>
+        <input type="checkbox" id="dark-mode-toggle" role="switch" aria-checked="false">
+    </div>
+
+    <h1>Welcome to the Theme Toggle Page</h1>
+    <p>This is a minimal static page demonstrating a dark mode toggle functionality.</p>
+    <p>Use the switch above to change the page's theme between a light and a dark aesthetic.</p>
+    <p>The theme preference is not persisted across sessions in this example, so it will reset on page reload.</p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const toggle = document.querySelector("#dark-mode-toggle");
+            const body = document.body;
+
+            // Set initial aria-checked state for accessibility.
+            // By default, the page loads in light mode, so aria-checked should be false.
+            toggle.setAttribute("aria-checked", "false");
+
+            // Add event listener to the toggle switch
+            toggle.addEventListener("change", () => {
+                // Toggle the 'dark' class on the body element
+                body.classList.toggle("dark");
+
+                // Update aria-checked attribute based on the current state
+                toggle.setAttribute("aria-checked", body.classList.contains("dark").toString());
+            });
+        });
+    </script>
+</body>
+</html>
